@@ -1,0 +1,6 @@
+*~
+*.stl
+*.stl.scad
+*.tar.gz
+*.zip
+docs/

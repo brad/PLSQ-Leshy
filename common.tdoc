@@ -1,0 +1,46 @@
+/**
+ * @name M3 washer
+ * @common
+ * @category Nuts&bolts
+ * @id m3washer
+ */
+
+/**
+ * @name M3 10mm screw
+ * @common
+ * @category Nuts&bolts
+ * @id m3x10
+ */
+
+/**
+ * @name Glue
+ * @common
+ * @category Adhesives
+ * @id glue
+ */
+ 
+/**
+ * @name Brushless motor
+ * @category Electronics
+ * @id brushless-motor
+ */
+
+/**
+ * @name Electronic Speed Controller
+ * @category Electronics
+ * @id esc
+ */
+
+/**
+ * @name Multiwii SE
+ * @category Electronics
+ * @id multiwii-se
+ * @comment http://www.goodluckbuy.com/mwc-multiwii-se-standard-edition-4-axis-flight-control-board-quadx-w-ftdi-basic-breakout-.html?&sl=en
+ */
+
+/**
+ * @name More Fontz!
+ * @category OpenSCAD Libraries
+ * @id more-fontz
+ * @comment Only ArchitectsDaughter is needed: http://www.thingiverse.com/thing:13677
+ */
