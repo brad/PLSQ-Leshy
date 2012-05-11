@@ -89,7 +89,7 @@ documentation:
 release: ${TARGETS} documentation
 	rm docs/*.aux docs/*.log docs/*.out docs/*.tex docs/*.toc docs/*.dot
 	tar cz docs *.stl > plsq-leshy-compiled-`date +'%Y.%m.%d'`.tar.gz
-	zip plsq-leshy-compiled-`date +'%Y.%m.%d'`.zip docs *.stl
+	zip -r plsq-leshy-compiled-`date +'%Y.%m.%d'`.zip docs *.stl
 
 clean_intermediates:
 	rm -rf *.deps *.stl.scad docs
