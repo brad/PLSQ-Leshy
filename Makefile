@@ -8,13 +8,6 @@ TARGETS=arm.stl arm_no_raft.stl arm_split.stl arm_split_no_raft.stl \
 
 all: ${TARGETS}
 
-# auto-generated .scad files with .deps cause make to always re-build. keeping the
-# scad files solves this problem.
-.SECONDARY: $(shell echo "${TARGETS}" | sed 's/\.stl/.stl.scad/g;')
-
-# explicit wildcard expansion suppresses errors when no files are found
-include $(wildcard *.deps)
-
 arm.stl:
 	echo 'include <arm.scad> arm();' | ./openscad_make.sh $@
 
@@ -95,8 +88,8 @@ documentation:
 
 release: ${TARGETS} documentation
 	rm docs/*.aux docs/*.log docs/*.out docs/*.tex docs/*.toc docs/*.dot
-	tar cz docs *.stl > plsq-leshy-`date +'%Y.%m.%d'`.tar.gz
-	zip plsq-leshy-`date +'%Y.%m.%d'`.zip docs *.stl
+	tar cz docs *.stl > plsq-leshy-compiled-`date +'%Y.%m.%d'`.tar.gz
+	zip plsq-leshy-compiled-`date +'%Y.%m.%d'`.zip docs *.stl
 
 clean_intermediates:
 	rm -rf *.deps *.stl.scad docs
