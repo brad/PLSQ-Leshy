@@ -6,6 +6,8 @@ c_w_receiver_l = 2 * cos(45) * c_bottom_short_l + c_45_l;
 c_w_receiver_factor = c_w_receiver_l / c_bottom_l;    // w/receiver
 c_wo_receiver_factor = (1.015 * c_w_receiver_l) / c_bottom_l;  // w/o receiver
 
+canopy();
+
 /**
  * PLSQ canopy
  *
@@ -91,41 +93,29 @@ module canopy(receiver = false, upside_down = false, text = true) {
  * @param bool receiver Whether or not we are adding a receiver bay
  */
 module canopy_hull(receiver = false) {
-	hull() {
-		// Bottom cross section
-		linear_extrude(height = 0.1) {
-			xsection(c_bottom_l, receiver);
+	assign(r1 = c_bottom_l / sqrt(2))
+	assign(r2 = c_middle_l / sqrt(2))
+	assign(r3 = c_top_l / sqrt(2))
+	assign(r4 = (receiver ? c_receiver_factor : c_wo_receiver_factor) *
+	      c_bottom_l / sqrt(2))
+	assign(r5 = (receiver ? c_receiver_factor : c_wo_receiver_factor) *
+	      c_middle_l / sqrt(2))
+	assign(r6 = (receiver ? c_receiver_factor : c_wo_receiver_factor) *
+	      c_top_l / sqrt(2))
+	translate([-0.09, 0, 0])
+	rotate([0, 0, 45]) {
+		intersection() {
+			cylinder(h = c_bottom_h, r1 = r1, r2 = r2, $fn = 4);
+			rotate([0, 0, 45]) {
+				cylinder(h = c_bottom_h, r1 = r4, r2 = r5, $fn = 4);
+			}
 		}
-		// Middle cross section
 		translate([0, 0, c_bottom_h - 0.1])
-		linear_extrude(height = 0.1) {
-			xsection(c_middle_l, false);
-		}
-		// Top cross section
-		translate([-c_top_l / 2,
-		         -c_top_l / 2, c_bottom_h + c_top_h - 0.1]) {
-			cube([c_top_l, c_top_l, 0.1]);
-		}
-	}
-}
-
-/**
- * Helper module to draw a cross-section of the canopy
- *
- * @param float length The length of the cross-section
- * @param bool receiver Whether or not we are adding a receiver bay
- */
-module xsection(length, receiver = false) {
-	intersection() {
-		translate([-length / 2, -length / 2]) {
-			square([length, length]);
-		}
-		// Scale length for rotated square
-		scale(receiver ? c_w_receiver_factor : 
-		     c_wo_receiver_factor)
-		rotate([0, 0, -45])
-		translate([-length / 2, -length / 2]) {
-			square([length, length]);
+		intersection() {
+			cylinder(h = c_top_h, r1 = r2, r2 = r3, $fn = 4);
+			rotate([0, 0, 45]) {
+				cylinder(h = c_top_h, r1 = r5, r2 = r3 / sin(45), $fn = 4);
+			}
 		}
 	}
 }
